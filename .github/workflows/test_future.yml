@@ -42,8 +42,7 @@ jobs:
     - name: Checkout Spatialgeometry
       uses: actions/checkout@v4
       with:
-        ref: future
-        repository: jhavl/spatialgeometry
+        repository: gaurishg/spatialgeometry
         path: sg
         
     - name: Install dependencies

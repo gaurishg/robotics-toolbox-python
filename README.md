@@ -99,9 +99,12 @@ repository in the following ways:
 - the minimum supported Python version is now **3.10**;
 - local extension builds target **NumPy 2** by default, so editable and isolated
   builds compile against the NumPy 2 ABI;
+- `spatialgeometry` is resolved from the
+  [`gaurishg/spatialgeometry`](https://github.com/gaurishg/spatialgeometry)
+  fork so the stack stays on a NumPy-2-compatible dependency set;
 - development tooling now includes **ruff** and **mypy** for static checks;
-- the top-level `import roboticstoolbox` path is more tolerant of optional
-  modules that still depend on third-party NumPy-1-built wheels.
+- top-level `import roboticstoolbox` now fails fast if a dependency import is
+  incompatible, instead of masking mixed NumPy 1/2 installations.
 
 For this fork, a typical development install plus the focused validation commands
 used for this update are:
