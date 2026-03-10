@@ -4,7 +4,7 @@ import io
 from roboticstoolbox.tools import *
 from roboticstoolbox.tools import __all__ as tools_all
 
-__all__ = [*tools_all]
+__all__ = list(tools_all)
 
 try:
     with contextlib.redirect_stderr(io.StringIO()):

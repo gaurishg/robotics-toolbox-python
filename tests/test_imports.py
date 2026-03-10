@@ -27,8 +27,12 @@ class TestImports(unittest.TestCase):
             check=False,
             text=True,
         )
+        parts = result.stdout.strip().split()
 
         self.assertEqual(result.returncode, 0, msg=result.stderr or result.stdout)
+        self.assertEqual(parts[0], "spatialmath.base")
+        self.assertRegex(parts[1], r"^\d+\.\d+(\.\d+)?$")
+        self.assertEqual(parts[2], "roboticstoolbox")
 
 
 if __name__ == "__main__":  # pragma nocover
