@@ -88,7 +88,29 @@ provide support for data types such as SO(n) and SE(n) matrices, quaternions, tw
 
 ## Getting going
 
-You will need Python >= 3.6
+You will need Python >= 3.10
+
+### Changes in this fork relative to the base repository
+
+This fork intentionally differs from the upstream
+[`petercorke/robotics-toolbox-python`](https://github.com/petercorke/robotics-toolbox-python)
+repository in the following ways:
+
+- the minimum supported Python version is now **3.10**;
+- local extension builds target **NumPy 2** by default, so editable and isolated
+  builds compile against the NumPy 2 ABI;
+- development tooling now includes **ruff** and **mypy** for static checks;
+- the top-level `import roboticstoolbox` path is more tolerant of optional
+  modules that still depend on third-party NumPy-1-built wheels.
+
+For this fork, a typical development install plus the focused validation commands
+used for this update are:
+
+```shell script
+pip3 install -e .[dev]
+python -m ruff check setup.py roboticstoolbox/tools/types.py tests/test_imports.py
+python -m mypy
+```
 
 ### Using pip
 
