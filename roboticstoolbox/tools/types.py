@@ -3,11 +3,12 @@
 @author Jesse Haviland
 """
 
-from typing import Tuple, Union, List, Set
-from numpy import ndarray
+from collections.abc import Sequence, Set
+from typing import Any, TypeAlias
+import numpy.typing as npt
 
-NDArray = ndarray
+NDArray: TypeAlias = npt.NDArray[Any]
 
-PyArrayLike = Union[List[float], Tuple[float], Set[float]]
+PyArrayLike: TypeAlias = Sequence[float] | Set[float]
 
-ArrayLike = Union[NDArray, PyArrayLike]
+ArrayLike: TypeAlias = npt.ArrayLike | Set[float]

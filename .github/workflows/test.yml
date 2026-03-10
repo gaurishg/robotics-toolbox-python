@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest]
-        python-version: [3.7, 3.8, 3.9, "3.10", 3.11, 3.12]
+        python-version: ["3.10", 3.11, 3.12]
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }} for ${{ matrix.os }}
@@ -24,9 +24,13 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install .[dev,collision]
+    - name: Lint and type check
+      run: |
+        python -m ruff check setup.py roboticstoolbox/tools/types.py tests/test_imports.py
+        python -m mypy
     - name: Test with pytest
       run: |
-        pip install .[dev,collision]
         pip install pytest-timeout
         pytest --ignore=roboticstoolbox/blocks --timeout=50 --timeout_method thread -s
   codecov:
@@ -36,10 +40,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.7
+    - name: Set up Python 3.10
       uses: actions/setup-python@v1
       with:
-        python-version: 3.7
+        python-version: "3.10"
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -59,10 +63,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.7
+    - name: Set up Python 3.10
       uses: actions/setup-python@v1
       with:
-        python-version: 3.7
+        python-version: "3.10"
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip

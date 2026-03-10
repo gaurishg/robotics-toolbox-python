@@ -2,20 +2,20 @@ from setuptools import setup, Extension
 import os
 import numpy
 
-extra_folders = [
+extra_folders: list[str] = [
     "roboticstoolbox/core",
 ]
 
 
-def package_files(directory):
-    paths = []
+def package_files(directory: str) -> list[str]:
+    paths: list[str] = []
     for (pathhere, _, filenames) in os.walk(directory):
         for filename in filenames:
             paths.append(os.path.join("..", pathhere, filename))
     return paths
 
 
-extra_files = []
+extra_files: list[str] = []
 for extra_folder in extra_folders:
     extra_files += package_files(extra_folder)
 
