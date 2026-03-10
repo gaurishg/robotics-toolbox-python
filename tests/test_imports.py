@@ -63,8 +63,8 @@ class TestImports(unittest.TestCase):
 
         def fake_import(
             name: str,
-            globals_: dict[str, Any] | None = None,
-            locals_: dict[str, Any] | None = None,
+            globals: dict[str, Any] | None = None,
+            locals: dict[str, Any] | None = None,
             fromlist: tuple[str, ...] = (),
             level: int = 0,
         ) -> Any:
@@ -72,7 +72,7 @@ class TestImports(unittest.TestCase):
                 return fake_tools
             if name == "roboticstoolbox.robot":
                 raise ImportError("NumPy ABI mismatch")
-            return original_import(name, globals_, locals_, fromlist, level)
+            return original_import(name, globals, locals, fromlist, level)
 
         builtins_dict = dict(vars(builtins))
         builtins_dict["__import__"] = fake_import

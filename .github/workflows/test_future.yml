@@ -42,6 +42,7 @@ jobs:
     - name: Checkout Spatialgeometry
       uses: actions/checkout@v4
       with:
+        ref: main
         repository: gaurishg/spatialgeometry
         path: sg
         
