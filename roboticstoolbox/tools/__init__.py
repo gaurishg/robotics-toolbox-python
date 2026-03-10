@@ -1,7 +1,14 @@
+import contextlib
+import io
+
 from roboticstoolbox.tools.null import null
 from roboticstoolbox.tools.p_servo import p_servo, angle_axis, angle_axis_python
 from roboticstoolbox.tools.Ticker import Ticker
-from roboticstoolbox.tools.urdf import *  # noqa
+try:
+    with contextlib.redirect_stderr(io.StringIO()):
+        from roboticstoolbox.tools.urdf import *  # noqa
+except ImportError:
+    pass
 from roboticstoolbox.tools.trajectory import (
     quintic,
     quintic_func,

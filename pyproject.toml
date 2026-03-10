@@ -12,7 +12,7 @@ authors = [
 ]
 
 dependencies = [
-    "numpy>=1.17.4",
+    "numpy>=2.0.0",
     "spatialmath-python>=1.1.5",
     "spatialgeometry>=1.0.0",
     "pgraph-python",
@@ -29,7 +29,7 @@ license = { file = "LICENSE" }
 
 readme = "README.md"
 
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 
 keywords = [
     "python",
@@ -54,11 +54,9 @@ classifiers = [
     # Pick your license as you wish (should match "license" above)
     "License :: OSI Approved :: MIT License",
     # Specify the Python versions you support here.
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 
 
@@ -74,9 +72,11 @@ collision = ["pybullet"]
 
 dev = [
     "black",
+    "mypy",
     "pytest",
     "pytest-cov",
     "flake8",
+    "ruff",
     "pyyaml",
     "sympy",
     "qpsolvers",
@@ -104,7 +104,7 @@ rtbtool = "roboticstoolbox.bin.rtbtool:main"
 
 [build-system]
 
-requires = ["setuptools", "oldest-supported-numpy"]
+requires = ["setuptools", "numpy>=2.0.0"]
 build-backend = "setuptools.build_meta"
 
 
@@ -134,7 +134,7 @@ packages = [
 [tool.black]
 
 line-length = 88
-target_version = ['py37']
+target_version = ['py310']
 args = '--experimental-string-processing'
 
 include = '\.pyi?$'
@@ -176,8 +176,8 @@ extend-ignore = 'E203'
 manylinux-x86_64-image = "manylinux2014"
 manylinux-aarch64-image = "manylinux2014"
 
-# Build CPython 3.7 - 3.11
-build = ["cp37-*", "cp38-*", "cp39-*", "cp310-*", "cp311-*"]
+# Build CPython 3.10 - 3.12
+build = ["cp310-*", "cp311-*", "cp312-*"]
 
 # Disable building musllinux wheels on all platforms
 skip = ["pp*", "*musllinux*"]
@@ -202,3 +202,35 @@ archs = ["AMD64", "x86"]
 
 [tool.coverage.run]
 omit = ["roboticstoolbox/examples/*", "test_*.py"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+exclude = [
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".tox",
+    ".venv",
+    ".github",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "docs",
+]
+
+[tool.ruff.lint]
+extend-ignore = ["E203", "E741", "F821"]
+
+[tool.mypy]
+python_version = "3.10"
+files = ["setup.py", "roboticstoolbox/tools/types.py", "tests/test_imports.py"]
+follow_imports = "skip"
+strict = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = ["setuptools", "setuptools.*"]
+ignore_missing_imports = true

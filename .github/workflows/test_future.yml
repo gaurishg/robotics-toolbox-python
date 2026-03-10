@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-12]
-        python-version: [3.8, 3.9, '3.10', '3.11', '3.12']
+        python-version: ['3.10', '3.11', '3.12']
 
     steps:
     - name: Set up Python ${{ matrix.python-version }}
@@ -67,6 +67,8 @@ jobs:
         cd robotics-toolbox-python
         pip install -e .[dev,collision]
         pip install pytest-timeout
+        python -m ruff check setup.py roboticstoolbox/tools/types.py tests/test_imports.py
+        python -m mypy
         python -c "import spatialgeometry"
         python -c "import roboticstoolbox"
         pytest --ignore=roboticstoolbox/blocks --timeout=50 --timeout_method thread -s
